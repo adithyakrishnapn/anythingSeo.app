@@ -1,11 +1,29 @@
 import { useNavigate } from "react-router-dom";
+import { deleteLead } from "@/services/lead.service";
+import { toast } from "sonner";
 
 function LeadActions({
   detailed = false,
   id,
+  setConvert
 }) {
 
   const navigate = useNavigate();
+
+  function deleteLeadbyId() {
+    try{
+      deleteLead(id).then((response) => {
+        setTimeout(()=>{
+          toast.dismiss();
+        },3000);
+        toast.success("Lead deleted successfully");
+        navigate("/leads");
+      });
+    } catch (error) {
+      console.error('Error deleting lead:', error);
+    }
+  }
+
 
   return (
 
@@ -108,7 +126,11 @@ function LeadActions({
 
                 transition-colors
                 hover:bg-muted
-              "
+              " onClick={()=>{
+                if(window.confirm("Are you sure you want to delete this lead? This action cannot be undone.")){
+                  deleteLeadbyId();
+                }
+              }}
             >
               Delete Lead
             </button>
@@ -124,7 +146,7 @@ function LeadActions({
 
                 transition-opacity
                 hover:opacity-90
-              "
+              " onClick={()=> setConvert(prev=>!prev)}
             >
               Convert Lead
             </button>

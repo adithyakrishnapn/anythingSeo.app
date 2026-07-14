@@ -1,21 +1,22 @@
 import LeadForm from '@/components/leads/LeadForm';
+import { createLeads,updateLead } from '@/services/lead.service';
 import React, {
   useEffect,
   useState,
 } from 'react';
-
+import { toast } from 'sonner';
 import {
   useParams,
 } from 'react-router-dom';
-
-import { leadsDetailsData } from '@/constants/leadsData';
+import { useNavigate } from 'react-router-dom';
+import { getLeadById } from '@/services/lead.service';
 
 function CreateLead({
   isEdit = false,
 }) {
 
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const [formData, setFormData] =
     useState({
       name: "",
@@ -29,6 +30,7 @@ function CreateLead({
       address: "",
       description: "",
     });
+
 
   const handleChange = (e) => {
 
@@ -45,18 +47,35 @@ function CreateLead({
 
     if (isEdit && id) {
 
-      setFormData(
-        leadsDetailsData[id]
-      );
+      getLeadById(id).then((response) => {
+        setFormData(response.data);
+      }).catch((error) => {
+        console.error('Error fetching lead:', error);
+      });
     }
     
   }, [id, isEdit]);
 
-  function formSubmission(){
-    if(isEdit){
+  async function formSubmission(e){
+    e.preventDefault();
 
-    } else {
-      
+    try {
+      if (isEdit) {
+        await updateLead(id, formData);
+        toast.success("Lead updated successfully");
+      } else {
+        await createLeads(formData);
+        toast.success("Lead created successfully");
+      }
+
+      navigate("/leads");
+    } catch (error) {
+      console.error(isEdit ? "Error updating lead:" : "Error creating lead:", error);
+      toast.error(
+        error?.response?.data?.message ||
+        error?.message ||
+        (isEdit ? "Error updating lead" : "Error creating lead")
+      );
     }
   }
 
@@ -67,6 +86,7 @@ function CreateLead({
       <LeadForm
         formData={formData}
         handleChange={handleChange}
+        formSubmission={formSubmission}
       />
 
     </div>

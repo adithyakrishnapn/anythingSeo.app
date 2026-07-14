@@ -1,11 +1,50 @@
 import LeadStatusBadge from "../common/StatusBadge";
+import { useState, useRef } from "react";
+import AddActivity from "./AddActivity";
+import { addActivity, deleteActivity } from "@//services/lead.service.js";
+import { toast } from "sonner";
 
-function LeadDetailsCard({ lead, leadTags }) {
+
+function LeadDetailsCard({ lead, leadTags, id, changeActivity }) {
+  const [activitySection, setActivitySection] = useState(false); 
+  const [activity, setActivity] = useState("");
+  const activityInputRef = useRef(null);
+
 
   const formatTagLabel = (tag) =>
     tag
       .replace(/([A-Z])/g, ' $1')
       .replace(/^./, (char) => char.toUpperCase());
+
+  const closeActivity =()=>{
+    setActivitySection((prev)=>!prev);
+  }
+
+
+async function addActivitytoLead(){
+  try{
+    const res = await addActivity(id,activity);
+    if(res){
+      toast.success("Activity added successfully");
+      changeActivity((prev)=>!prev);
+      activityInputRef.current.value = "";
+    }
+  } catch(e){
+    console.error("Error in adding activity", e);
+  }
+}
+
+async function deleteActivityLead(act){
+  try{
+    const res = await deleteActivity(id,act);
+    if(res){
+      toast.success("Activity deleted successfully");
+      changeActivity((prev)=>!prev);
+    }
+  } catch(e){
+    console.error("Error in deleting activity", e);
+  }
+}
 
   return (
 
@@ -128,9 +167,9 @@ function LeadDetailsCard({ lead, leadTags }) {
             <p className="
               text-sm
               leading-relaxed
-              text-foreground
+              text-muted-foreground
             ">
-              {lead.notes || 'No notes available.'}
+              {lead.notes.length > 0 ? lead.notes : 'No notes available.'}
             </p>
 
           </div>
@@ -153,6 +192,19 @@ function LeadDetailsCard({ lead, leadTags }) {
           ">
             Activities
           </h3>
+          <button
+            type="button"
+            onClick={() => setActivitySection((prev) => !prev)}
+            aria-expanded={activitySection}
+            className={`rounded-lg px-4 py-2 text-sm font-medium transition-opacity mb-4 focus:outline-none ${activitySection ? 'border border-border bg-background text-foreground hover:opacity-90' : 'bg-primary text-primary-foreground hover:opacity-90'}`}
+          >
+            {activitySection ? 'Close' : 'Add Activity'}
+          </button>
+          { activitySection && (
+            <div className="mt-4 mb-4">
+              <AddActivity setActivity={setActivity} closeFunction={closeActivity} submitFunc={addActivitytoLead} act={activityInputRef} />
+            </div>
+          )}
 
           <ul className="
             space-y-3
@@ -166,7 +218,7 @@ function LeadDetailsCard({ lead, leadTags }) {
                   <li
                     key={index}
                     className="
-                      flex items-start gap-3
+                      flex items-center gap-3
                       text-sm text-foreground
                     "
                   >
@@ -179,9 +231,28 @@ function LeadDetailsCard({ lead, leadTags }) {
                       shrink-0
                     " />
 
-                    <span>
+                    <span className="flex-1">
                       {activity}
                     </span>
+                    <button
+                      type="button"
+                      onClick={() => deleteActivityLead(activity)}
+                      className="
+                        ml-auto
+                        shrink-0
+                        rounded-lg
+                        border border-border
+                        bg-background
+                        px-3 py-1.5
+                        text-xs font-medium
+                        text-foreground
+                        transition-colors
+                        hover:bg-rose-500/10
+                        hover:text-rose-700
+                      "
+                    >
+                      Delete
+                    </button>
 
                   </li>
 

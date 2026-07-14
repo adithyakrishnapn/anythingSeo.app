@@ -246,4 +246,4 @@ export const leadsDetailsData = {
 
 export const leadsDetailsTags = ['','name','email','phone','company','status', 'source', 'value', 'assignedTo', 'notes', 'address', 'createdAt'];
 export const leadTags = ['','name','email','status', 'source', 'value', 'date'];
-export const leadFilters = ['All', 'New', 'Qualified', 'Lost'];
+export const leadFilters = ['All', 'New', 'Converted', 'Contacted', 'Lost'];

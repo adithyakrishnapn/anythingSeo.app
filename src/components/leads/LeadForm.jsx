@@ -3,6 +3,7 @@ import React from 'react'
 function LeadForm({
   formData,
   handleChange,
+  formSubmission
 }) {
 
 
@@ -252,9 +253,14 @@ function LeadForm({
                 focus:ring-primary/20
               "
             >
-              <option value="organic">Organic</option>
-              <option value="paid">Paid</option>
-              <option value="referral">Referral</option>
+              
+              <option value="" disabled>
+                Select One
+              </option>
+              <option value="new">New</option>
+              <option value="contacted">Contacted</option>
+              <option value="converted">Converted</option>
+              <option value="lost">Lost</option>
             </select>
 
           </div>
@@ -391,21 +397,21 @@ function LeadForm({
         <div className="space-y-2">
 
           <label
-            htmlFor="description"
+            htmlFor="notes"
             className="
               text-sm font-medium
               text-foreground
             "
           >
-            Description
+            Notes
           </label>
 
           <textarea
-            id="description"
+            id="notes"
             rows={5}
-            value={formData.description || ""}
+            value={formData.notes || ""}
             onChange={handleChange}
-            placeholder="Enter lead description..."
+            placeholder="Enter lead notes..."
             className="
               w-full
               rounded-lg
@@ -445,6 +451,7 @@ function LeadForm({
               transition-opacity
               hover:opacity-90
             "
+            onClick={formSubmission}
           >
             Save Lead
           </button>
@@ -452,6 +459,7 @@ function LeadForm({
         </div>
 
       </form>
+
 
     </div>
 

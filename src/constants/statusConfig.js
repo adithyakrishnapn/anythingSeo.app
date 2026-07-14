@@ -1,10 +1,10 @@
 const STATUS_COLORS = {
 
   // Lead Statuses
-  New: 'bg-blue-100 text-blue-800',
-  Qualified: 'bg-green-100 text-green-800',
-  Contacted: 'bg-yellow-100 text-yellow-800',
-  Lost: 'bg-red-100 text-red-800',
+  new: 'bg-blue-100 text-blue-800',
+  converted: 'bg-green-100 text-green-800',
+  contacted: 'bg-yellow-100 text-yellow-800',
+  lost: 'bg-red-100 text-red-800',
 
   // Client Statuses
   Active: 'bg-green-100 text-green-800',

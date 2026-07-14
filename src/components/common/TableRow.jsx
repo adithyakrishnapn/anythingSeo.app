@@ -7,7 +7,8 @@ function TableRow({ rowData, rowColumns, islink = null }) {
 
   const handleRowClick = () => {
     if (islink) {
-      navigate(`/${islink}/${rowData.id}`);
+      console.log(rowData._id);
+      navigate(`/${islink}/${rowData._id}`);
     }
   };
 

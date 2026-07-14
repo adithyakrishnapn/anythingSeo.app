@@ -58,7 +58,7 @@ function Table({ leads, tags, linkto = false }) {
 
                     ) : (
                         leads.map((lead) =>
-                            <LeadTableRow key={lead.id} rowData={lead} rowColumns={tags} islink={linkto} />
+                            <LeadTableRow key={lead._id} rowData={lead} rowColumns={tags} islink={linkto} />
                         )
 
                     )}
