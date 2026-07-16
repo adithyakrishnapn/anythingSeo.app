@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { SheetClose } from "@/components/ui/sheet";
 import {
-  PanelLeftClose,
-  PanelLeftOpen,
+  LogOut,
 } from "lucide-react";
 
 import { sidebarItems }
@@ -14,6 +14,7 @@ from "../../constants/anythingSeo";
 import ThemeToggler
 from "../common/ThemeToggler";
 import CollapsedBtn from "../common/CollapsedBtn";
+import useAuth from "@/hooks/useAuth";
 
 const toneClasses = {
   slate: "bg-slate-500/10 text-slate-600 dark:text-slate-300",
@@ -29,6 +30,14 @@ const toneClasses = {
 function Sidebar({
   mobile = false, collapsed, setCollapsed
 }) {
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login", { replace: true });
+  };
+
   return (
     <aside
       className={`
@@ -117,7 +126,7 @@ function Sidebar({
       </div>
 
       {/* NAVIGATION */}
-      <nav className="flex flex-col gap-1.5">
+      <nav className="flex flex-1 flex-col gap-1.5">
 
         {sidebarItems.map((item) => (
 
@@ -175,6 +184,31 @@ function Sidebar({
         ))}
 
       </nav>
+
+      {user && (
+        <div className="pt-4">
+          <button
+            type="button"
+            onClick={handleLogout}
+            className={`
+              flex w-full items-center rounded-xl border border-border bg-card/80 px-4 py-3.5 text-sm font-medium text-muted-foreground shadow-sm transition-all duration-200 hover:bg-destructive/10 hover:text-destructive
+
+              ${collapsed
+                ? "justify-center"
+                : "gap-3"
+              }
+            `}
+          >
+            <LogOut className="h-4.5 w-4.5 shrink-0" />
+
+            {!collapsed && (
+              <span className="tracking-tight">
+                Logout
+              </span>
+            )}
+          </button>
+        </div>
+      )}
 
     </aside>
 

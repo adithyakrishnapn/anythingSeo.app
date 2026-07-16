@@ -1,5 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home';
+import Login from '../pages/auth/Login';
+import Signup from '../pages/auth/Signup';
 import Analytics from '../pages/Analytics';
 import Dashboard from '../pages/Dashboard';
 import LeadsPage from '../pages/leads/LeadsPage';
@@ -17,12 +19,16 @@ import TasksFromProject from '@/pages/tasks/TaskFromProject';
 import TasksPage from '@/pages/tasks/TasksPage';
 import TaskDetailsPage from '@/pages/tasks/TaskDetailsPage';
 import TaskProgress from '@/pages/tasks/TaskProgress';
-
+import PublicRoute from './PublicRoute';
 
 function AppRoutes() {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
+            <Route element={<PublicRoute />}>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+            </Route>
             <Route element={<DashboardLayout />}>
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/settings" element={<Settings />} />
