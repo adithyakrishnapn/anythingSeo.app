@@ -3,13 +3,16 @@ import { useState, useRef } from "react";
 import AddActivity from "./AddActivity";
 import { addActivity, deleteActivity } from "@//services/lead.service.js";
 import { toast } from "sonner";
+import LeadAIAnalysisCard from "./LeadAIAnalysisCard";
 
-
-function LeadDetailsCard({ lead, leadTags, id, changeActivity }) {
+function LeadDetailsCard({ lead, leadTags, id, changeActivity, analysisData, analyzeGenerate }) {
   const [activitySection, setActivitySection] = useState(false); 
   const [activity, setActivity] = useState("");
   const activityInputRef = useRef(null);
 
+  const notesText = typeof lead?.notes === 'string' && lead.notes.trim()
+    ? lead.notes
+    : 'No notes available.';
 
   const formatTagLabel = (tag) =>
     tag
@@ -114,6 +117,12 @@ async function deleteActivityLead(act){
                     status={lead[tag]}
                   />
 
+                ) : tag === "address" ? (
+
+                  <div className="text-sm font-medium text-foreground break-words">
+                    <p>{lead.address || "No address available."}</p>
+                  </div>
+
                 ) : (
 
                   <p className="
@@ -169,7 +178,7 @@ async function deleteActivityLead(act){
               leading-relaxed
               text-muted-foreground
             ">
-              {lead.notes.length > 0 ? lead.notes : 'No notes available.'}
+              {notesText}
             </p>
 
           </div>
@@ -270,6 +279,7 @@ async function deleteActivityLead(act){
           </ul>
 
         </div>
+        <LeadAIAnalysisCard analysis={analysisData} analyzeGenerate={analyzeGenerate} />
 
       </div>
 

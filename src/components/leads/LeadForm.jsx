@@ -38,7 +38,7 @@ function LeadForm({
 
       </div>
 
-      <form className="space-y-6">
+      <form className="space-y-6" onSubmit={formSubmission}>
 
         {/* GRID */}
         <div className="
@@ -216,6 +216,50 @@ function LeadForm({
 
           </div>
 
+          {/* VALUE */}
+          <div className="space-y-2">
+
+            <label
+              htmlFor="value"
+              className="
+                text-sm font-medium
+                text-foreground
+              "
+            >
+              Value
+            </label>
+
+            <input
+              type="number"
+              id="value"
+              value={formData.value || ""}
+              onChange={handleChange}
+              placeholder="Enter lead value"
+              min="0"
+              step="0.01"
+              className="
+                w-full
+                rounded-lg
+                border border-input
+                bg-background
+                px-4 py-2.5
+                text-sm
+                text-foreground
+
+                outline-none
+
+                transition-colors
+
+                placeholder:text-muted-foreground
+
+                focus:border-primary
+                focus:ring-2
+                focus:ring-primary/20
+              "
+            />
+
+          </div>
+
           {/* STATUS */}
           <div className="space-y-2">
 
@@ -350,14 +394,11 @@ function LeadForm({
           </div>
 
           {/* ADDRESS */}
-          <div className="space-y-2">
+          <div className="space-y-2 md:col-span-2">
 
             <label
               htmlFor="address"
-              className="
-                text-sm font-medium
-                text-foreground
-              "
+              className="text-sm font-medium text-foreground"
             >
               Address
             </label>
@@ -393,7 +434,9 @@ function LeadForm({
 
         </div>
 
-        {/* DESCRIPTION */}
+        
+
+        {/* NOTES */}
         <div className="space-y-2">
 
           <label
@@ -451,7 +494,6 @@ function LeadForm({
               transition-opacity
               hover:opacity-90
             "
-            onClick={formSubmission}
           >
             Save Lead
           </button>

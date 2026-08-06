@@ -95,7 +95,10 @@ export const leadsDetailsData = {
     value: "₹12,000",
     assignedTo: "Admin",
     notes: "Interested in CRM automation setup.",
-    address: "Trivandrum, Kerala",
+    address: {
+      street: "Trivandrum, Kerala",
+      city: "",
+    },
     createdAt: "2026-05-20",
     activities: [
       "Lead created",
@@ -115,7 +118,10 @@ export const leadsDetailsData = {
     value: "₹8,500",
     assignedTo: "Rahul",
     notes: "Requested product demo next week.",
-    address: "Kochi, Kerala",
+    address: {
+      street: "Kochi, Kerala",
+      city: "",
+    },
     createdAt: "2026-05-22",
     activities: [
       "Lead created",
@@ -134,7 +140,10 @@ export const leadsDetailsData = {
     value: "₹22,000",
     assignedTo: "Vishnu",
     notes: "High priority enterprise client.",
-    address: "Bangalore, Karnataka",
+    address: {
+      street: "Bangalore, Karnataka",
+      city: "",
+    },
     createdAt: "2026-05-18",
     activities: [
       "Lead created",
@@ -154,7 +163,10 @@ export const leadsDetailsData = {
     value: "₹5,000",
     assignedTo: "Admin",
     notes: "Client dropped due to budget issues.",
-    address: "Chennai, Tamil Nadu",
+    address: {
+      street: "Chennai, Tamil Nadu",
+      city: "",
+    },
     createdAt: "2026-05-15",
     activities: [
       "Lead created",
@@ -174,7 +186,10 @@ export const leadsDetailsData = {
     value: "₹15,500",
     assignedTo: "Rahul",
     notes: "Waiting for scheduled callback.",
-    address: "Hyderabad, Telangana",
+    address: {
+      street: "Hyderabad, Telangana",
+      city: "",
+    },
     createdAt: "2026-05-14",
     activities: [
       "Lead created",
@@ -193,7 +208,10 @@ export const leadsDetailsData = {
     value: "₹30,000",
     assignedTo: "Vishnu",
     notes: "Interested in yearly enterprise subscription.",
-    address: "Mumbai, Maharashtra",
+    address: {
+      street: "Mumbai, Maharashtra",
+      city: "",
+    },
     createdAt: "2026-05-10",
     activities: [
       "Lead created",
@@ -213,7 +231,10 @@ export const leadsDetailsData = {
     value: "₹7,000",
     assignedTo: "Admin",
     notes: "No response after follow-ups.",
-    address: "Pune, Maharashtra",
+    address: {
+      street: "Pune, Maharashtra",
+      city: "",
+    },
     createdAt: "2026-05-08",
     activities: [
       "Lead created",
@@ -233,7 +254,10 @@ export const leadsDetailsData = {
     value: "₹18,000",
     assignedTo: "Rahul",
     notes: "Requested pricing and onboarding details.",
-    address: "Delhi, India",
+    address: {
+      street: "Delhi, India",
+      city: "",
+    },
     createdAt: "2026-05-06",
     activities: [
       "Lead created",

@@ -7,6 +7,10 @@ function ClientDetailsCard({ client, clientTags }) {
             .replace(/([A-Z])/g, ' $1')
             .replace(/^./, (char) => char.toUpperCase());
 
+    const notesText = typeof client?.notes === 'string' && client.notes.trim()
+        ? client.notes
+        : 'No notes available.';
+
     return (
         <div className="
             grid
@@ -125,7 +129,7 @@ function ClientDetailsCard({ client, clientTags }) {
                             leading-relaxed
                             text-foreground
                         ">
-                            {client.notes || 'No notes available.'}
+                            {notesText}
                         </p>
 
                     </div>

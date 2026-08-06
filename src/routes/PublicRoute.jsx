@@ -24,7 +24,7 @@ function PublicRoute() {
 
             <Navigate
 
-                to="/dashboard"
+                to="/dashboard/main"
 
                 replace
 

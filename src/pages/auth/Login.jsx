@@ -32,7 +32,7 @@ function Login() {
 				return;
 			}
 			toast.success(response?.message || "Logged in successfully");
-			navigate("/dashboard");
+			navigate("/dashboard/main");
 
 		} catch (error) {
 			toast.error(error?.response?.data?.message || "Failed to log in");
@@ -101,7 +101,7 @@ function Login() {
 						<LoginForm onSubmitFun={handleSubmit} submitting={submitting} setFormData={setFormData} formData={formData} />
 						<p className="mt-4 text-center text-sm text-muted-foreground">
 							New here?{" "}
-							<Link to="/signup" className="font-medium text-foreground underline-offset-4 hover:underline">
+							<Link to="/auth/signup" className="font-medium text-foreground underline-offset-4 hover:underline">
 								Create an account
 							</Link>
 						</p>

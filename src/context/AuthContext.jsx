@@ -1,11 +1,11 @@
-import React, { createContext, useEffect } from 'react'
+import React, { useState, createContext, useEffect } from 'react'
 import { currentUser, loginService, registerService, logoutService } from '@/services/auth.service'
 
 const AuthContext = createContext(null)
 
 function AuthProvider({ children }) {
-  const [user, setUser] = React.useState(null)
-  const [loading, setLoading] = React.useState(true)
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
 
 
   const checkAuth = async () => {
@@ -30,8 +30,11 @@ function AuthProvider({ children }) {
   }
 
   const signup = async (userData) => {
-    await registerService(userData);
-    await checkAuth();
+    const response = await registerService(userData);
+    if(response?.success){
+      await checkAuth();
+    }
+    return response;
   }
 
   const logout = async () => {

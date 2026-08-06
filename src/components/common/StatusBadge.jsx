@@ -1,5 +1,5 @@
 import React from 'react'
-import STATUS_COLORS from '@/constants/statusConfig'
+import { STATUS_COLORS } from '@/constants/statusConfig'
 
 function StatusBadge({ status }) {
   return (

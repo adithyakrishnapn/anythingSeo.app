@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, BadgeCheck, Users, Workflow } from "lucide-react";
 import { toast } from "sonner";
+import { generateOtp } from "@/services/otp.service";
 
 import SignupForm from "@/components/auth/SignupForm";
+import OtpComponent from "@/components/auth/OtpComponent";
 import ThemeToggler from "@/components/common/ThemeToggler";
 import useAuth from "@/hooks/useAuth";
 
@@ -14,11 +16,13 @@ function Signup() {
     const { signup } = useAuth();
 
     const [submitting, setSubmitting] = useState(false);
-
+    const [otpToggler, setOtpToggler] = useState(true);
+    const [showOtp, setShowOtp] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         password: "",
+        otp: "",
     });
 
     const benefits = [
@@ -28,39 +32,54 @@ function Signup() {
     ];
 
     const SignupFunction = async (e) => {
-
         e.preventDefault();
 
-        try {
+        if (showOtp && !formData.otp?.trim()) {
+            toast.error("Please enter the OTP code before creating your account.");
+            return;
+        }
 
+        try {
             setSubmitting(true);
 
             const response = await signup(formData);
 
-            if (!response?.success) {
+            if (response?.success) {
+                toast.success(response?.message || "Registered Successfully");
+                navigate("/dashboard/main");
+            } else {
                 toast.error(response?.message || "Failed to register");
-                return;
             }
-
-            toast.success(response?.message || "Registered Successfully");
-
-            navigate("/dashboard");
-
         } catch (error) {
-
-            toast.error(
-                error?.response?.data?.message ||
-                "Registration failed"
-            );
-
+            toast.error(error?.response?.data?.message || "Registration failed");
             console.error(error);
-
         } finally {
-
             setSubmitting(false);
+        }
+    };
 
+    const generateOtpFunction = async (e) => {
+        e.preventDefault();
+
+        if (!formData.email?.trim()) {
+            toast.error("Please enter your email before requesting an OTP.");
+            return;
         }
 
+        try {
+            const response = await generateOtp(formData.email);
+
+            if (response?.success) {
+                toast.success(response?.message || "OTP sent successfully");
+                setShowOtp(true);
+                setOtpToggler(false);
+            } else {
+                toast.error(response?.message || "Failed to generate OTP");
+            }
+        } catch (error) {
+            toast.error(error?.response?.data?.message || "Failed to generate OTP");
+            console.error(error);
+        }
     };
 
     return (
@@ -173,6 +192,15 @@ function Signup() {
                             setFormData={setFormData}
                             submitting={submitting}
                             onSubmitFun={SignupFunction}
+                            otpToggler={otpToggler}
+                            showOtp={showOtp}
+                            onGenerateOtp={generateOtpFunction}
+                            otpComponent={showOtp ? (
+                                <OtpComponent
+                                    formData={formData}
+                                    setFormData={setFormData}
+                                />
+                            ) : null}
                         />
 
                         <p className="mt-4 text-center text-sm text-muted-foreground">

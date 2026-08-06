@@ -29,12 +29,27 @@ function CreateLead({
       assignedTo: "",
       address: "",
       description: "",
+      notes: "",
     });
 
 
   const handleChange = (e) => {
 
     const { id, value } = e.target;
+
+    if (id.includes(".")) {
+      const [parentKey, childKey] = id.split(".");
+
+      setFormData((prev) => ({
+        ...prev,
+        [parentKey]: {
+          ...(prev[parentKey] || {}),
+          [childKey]: value,
+        },
+      }));
+
+      return;
+    }
 
     setFormData((prev) => ({
       ...prev,
@@ -48,7 +63,10 @@ function CreateLead({
     if (isEdit && id) {
 
       getLeadById(id).then((response) => {
-        setFormData(response.data);
+        setFormData((prev) => ({
+          ...prev,
+          ...response.data,
+        }));
       }).catch((error) => {
         console.error('Error fetching lead:', error);
       });
@@ -68,7 +86,7 @@ function CreateLead({
         toast.success("Lead created successfully");
       }
 
-      navigate("/leads");
+      navigate("/dashboard/leads");
     } catch (error) {
       console.error(isEdit ? "Error updating lead:" : "Error creating lead:", error);
       toast.error(

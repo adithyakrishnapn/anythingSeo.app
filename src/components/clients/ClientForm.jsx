@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ClientForm({ formData, handleChange }) {
+function ClientForm({ formData, handleChange, formSubmission }) {
     return (
         <div className="
             w-full
@@ -30,7 +30,7 @@ function ClientForm({ formData, handleChange }) {
 
             </div>
 
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={formSubmission}>
 
                 <div className="
                     grid
@@ -189,10 +189,10 @@ function ClientForm({ formData, handleChange }) {
                             "
                         >
                             <option value="">Select status</option>
-                            <option value="Active">Active</option>
-                            <option value="Onboarding">Onboarding</option>
-                            <option value="Paused">Paused</option>
-                            <option value="Cancelled">Cancelled</option>
+                            <option value="active">Active</option>
+                            <option value="paused">Paused</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
                         </select>
 
                     </div>
@@ -348,37 +348,6 @@ function ClientForm({ formData, handleChange }) {
 
                     </div>
 
-                    <div className="space-y-2">
-
-                        <label htmlFor="projectCount" className="text-sm font-medium text-foreground">
-                            Project Count
-                        </label>
-
-                        <input
-                            type="number"
-                            id="projectCount"
-                            min="0"
-                            value={formData.projectCount || ''}
-                            onChange={handleChange}
-                            placeholder="Enter number of projects"
-                            className="
-                                w-full
-                                rounded-lg
-                                border border-input
-                                bg-background
-                                px-4 py-2.5
-                                text-sm
-                                text-foreground
-                                outline-none
-                                transition-colors
-                                placeholder:text-muted-foreground
-                                focus:border-primary
-                                focus:ring-2
-                                focus:ring-primary/20
-                            "
-                        />
-
-                    </div>
 
                 </div>
 
@@ -413,36 +382,6 @@ function ClientForm({ formData, handleChange }) {
 
                 </div>
 
-                <div className="space-y-2">
-
-                    <label htmlFor="activities" className="text-sm font-medium text-foreground">
-                        Activities
-                    </label>
-
-                    <textarea
-                        id="activities"
-                        rows={4}
-                        value={formData.activities || ''}
-                        onChange={handleChange}
-                        placeholder="Enter activities separated by commas"
-                        className="
-                            w-full
-                            rounded-lg
-                            border border-input
-                            bg-background
-                            px-4 py-3
-                            text-sm
-                            text-foreground
-                            outline-none
-                            transition-colors
-                            placeholder:text-muted-foreground
-                            focus:border-primary
-                            focus:ring-2
-                            focus:ring-primary/20
-                        "
-                    />
-
-                </div>
 
                 <div className="space-y-2">
 

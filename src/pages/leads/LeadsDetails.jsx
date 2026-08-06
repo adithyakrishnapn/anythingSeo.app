@@ -7,6 +7,7 @@ import { leadsDetailsTags } from '@/constants/leadsData'
 import { convertLeadToCustomer } from "@/services/lead.service";
 import { toast } from "sonner";
 import ConvertPopUp from '@/components/leads/ConvertPopUp'
+import { getLeadAnalysis, generateLeadAnalysis } from '@/services/lead.service'
 
 
 function LeadsDetails() {
@@ -15,14 +16,19 @@ function LeadsDetails() {
   const [act, changeact] = useState(false);
   const [status, changeStatus] = useState(false);
   const [convertPopup, setConvertPopup] = useState(false);
-
+  const [analysis, setAnalysis] = useState(null);
 
   useEffect(() => {
     const fethcData = async () => {
       try {
-        const response = await getLeadById(id);
-        console.log('Fetched lead:', response);
-        setLead(response.data);
+        const [leadResponse, analysisResponse] = await Promise.all([
+          getLeadById(id),
+          getLeadAnalysis(id),
+        ]);
+        console.log('Fetched lead:', leadResponse);
+        console.log('Fetched analysis:', analysisResponse);
+        setLead(leadResponse.data);
+        setAnalysis(analysisResponse.data);
       } catch (error) {
         console.error('Error fetching lead:', error);
       }
@@ -30,6 +36,29 @@ function LeadsDetails() {
 
     fethcData();
   }, [id, act, status]);
+
+  const analyzeGenerateFunction = async () => {
+  try {
+    toast.loading("Generating AI analysis...");
+
+    const analysisResponse = await generateLeadAnalysis(id);
+
+    toast.dismiss();
+
+    if (analysisResponse.success) {
+      toast.success("AI analysis generated successfully");
+      setAnalysis(analysisResponse.data);
+    } else {
+      toast.error(
+        analysisResponse.message || "Failed to generate AI analysis"
+      );
+    }
+  } catch (error) {
+    toast.dismiss();
+    toast.error("Error generating AI analysis");
+    console.error(error);
+  }
+};
 
   async function convertLead() {
     try {
@@ -55,7 +84,7 @@ function LeadsDetails() {
     <div className="space-y-6">
       {convertPopup && <ConvertPopUp ConvertFunction={convertLead} setConvertPopup={setConvertPopup} />}
       <LeadActions detailed={true} id={id} setConvert={setConvertPopup} />
-      <LeadDetailsCard lead={lead} leadTags={leadsDetailsTags} id={id} changeActivity={changeact} />
+      <LeadDetailsCard lead={lead} leadTags={leadsDetailsTags} id={id} changeActivity={changeact} analysisData={analysis} analyzeGenerate={analyzeGenerateFunction} />
     </div>
   )
 }

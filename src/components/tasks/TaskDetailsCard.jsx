@@ -1,6 +1,6 @@
 import React from 'react'
 import StatusBadge from '../common/StatusBadge'
-import STATUS_COLORS from '@/constants/statusConfig'
+import { STATUS_COLORS } from '@/constants/statusConfig'
 import { getProgressColor, getPriorityColor, formatTaskDate } from '@/utils/taskUtils'
 import TaskProgressBar from './TaskProgressBar'
 

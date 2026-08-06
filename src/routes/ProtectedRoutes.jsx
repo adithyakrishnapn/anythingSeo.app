@@ -14,7 +14,7 @@ function ProtectedRoutes() {
 
     if(!user){
         return(
-            <Navigate to={"/login"} replace />
+            <Navigate to={"/auth/login"} replace />
         )
     }
 

@@ -14,6 +14,10 @@ function SignupForm({
     setFormData,
     onSubmitFun,
     submitting,
+    otpToggler,
+    showOtp,
+    onGenerateOtp,
+    otpComponent,
 }) {
 
     const handleChange = (event) => {
@@ -146,26 +150,51 @@ function SignupForm({
                         Your role is set to <strong>User</strong> by default.
                     </div>
 
-                    <Button
-                        type="submit"
-                        size="lg"
-                        className="w-full gap-2"
-                        disabled={submitting}
-                    >
+                    <div className="space-y-3 rounded-2xl border border-border/70 bg-card/80 p-4 shadow-sm backdrop-blur">
+                        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                            <div>
+                                <p className="text-sm font-semibold text-foreground">Verify your email</p>
+                                <p className="text-sm text-muted-foreground">
+                                    Send a one-time code before finishing setup.
+                                </p>
+                            </div>
 
-                        {submitting ? (
-                            <>
-                                <Loader2 className="size-4 animate-spin" />
-                                Creating Account...
-                            </>
-                        ) : (
-                            <>
-                                Create Account
-                                <ArrowRight className="size-4" />
-                            </>
-                        )}
+                            <button
+                                type="button"
+                                onClick={onGenerateOtp}
+                                className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+                            >
+                                {showOtp ? "Resend OTP" : "Generate OTP"}
+                            </button>
+                        </div>
 
-                    </Button>
+                        {showOtp && otpComponent ? (
+                            <div className="pt-1">
+                                {otpComponent}
+                            </div>
+                        ) : null}
+                    </div>
+
+                    {otpToggler === false && (
+                        <Button
+                            type="submit"
+                            size="lg"
+                            className="w-full gap-2"
+                            disabled={submitting}
+                        >
+                            {submitting ? (
+                                <>
+                                    <Loader2 className="size-4 animate-spin" />
+                                    Creating Account...
+                                </>
+                            ) : (
+                                <>
+                                    Create Account
+                                    <ArrowRight className="size-4" />
+                                </>
+                            )}
+                        </Button>
+                    )}
 
                 </form>
 

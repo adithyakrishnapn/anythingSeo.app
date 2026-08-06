@@ -12,50 +12,50 @@ import {
 export const sidebarItems = [
   {
     title: "Dashboard",
-    path: "/dashboard",
+    path: "/dashboard/main",
     icon: LayoutDashboard,
   },
 
   {
     title: "Leads",
-    path: "/leads",
+    path: "/dashboard/leads",
     icon: UserPlus,
   },
 
   {
     title: "Clients",
-    path: "/clients",
+    path: "/dashboard/clients",
     icon: Briefcase,
   },
   
   {
     title: "Projects",
-    path: "/projects",
+    path: "/dashboard/projects",
     icon: Layers,
   },
 
   {
     title: "Tasks",
-    path: "/tasks",
+    path: "/dashboard/tasks",
     icon: CheckSquare,
   },
 
 
   {
     title: "Analytics",
-    path: "/analytics",
+    path: "/dashboard/analytics",
     icon: BarChart3,
   },
 
   {
     title: "AI Insights",
-    path: "/ai-insights",
+    path: "/dashboard/ai-insights",
     icon: Sparkles,
   },
 
   {
     title: "Settings",
-    path: "/settings",
+    path: "/dashboard/settings",
     icon: Settings,
   },
 ];
