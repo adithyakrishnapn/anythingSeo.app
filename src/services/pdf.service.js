@@ -4,7 +4,7 @@ import * as API from '../api/api.js';
 
 export const downloadLeadSummaryPDF = async (summaryId) => {
     try {
-        const response = await API.GET(`/summary/downloadsummarypdf/${summaryId}`, { responseType: 'blob' });
+        const response = await API.GET(`/api/summary/downloadsummarypdf/${summaryId}`, { responseType: 'blob' });
         const url = window.URL.createObjectURL(response);
         const link = document.createElement('a');
         link.href = url;
@@ -21,7 +21,7 @@ export const downloadLeadSummaryPDF = async (summaryId) => {
 
 export const downloadLatestAiAnalysisPDF = async () => {
     try {
-        const response = await API.GET(`/summary/downloadlatestsummarypdf`, { responseType: 'blob' });
+        const response = await API.GET(`/api/summary/downloadlatestsummarypdf`, { responseType: 'blob' });
         // console.log(response);
         // console.log(response.data);
         console.log(response instanceof Blob);

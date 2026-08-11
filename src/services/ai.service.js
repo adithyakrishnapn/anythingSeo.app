@@ -6,13 +6,13 @@ import * as API from '../api/api.js';
 
 // Analyze client health, risk score, opportunities, risks, recommended actions
 export const analyzeClient = async (clientId) => {
-    const response = await API.POST(`/ai/clients/${clientId}/analyze`);
+    const response = await API.POST(`/api/ai/clients/${clientId}/analyze`);
     return response;
 };
 
 // Generate meeting preparation summary and discussion points
 export const generateMeetingSummary = async (clientId) => {
-    const response = await API.POST(`/ai/clients/${clientId}/meeting-summary`);
+    const response = await API.POST(`/api/ai/clients/${clientId}/meeting-summary`);
     return response;
 };
 
@@ -22,18 +22,18 @@ export const generateMeetingSummary = async (clientId) => {
 
 // Analyze a specific task's priority and next steps
 export const analyzeTask = async (taskId) => {
-    const response = await API.POST(`/ai/tasks/${taskId}/analyze`);
+    const response = await API.POST(`/api/ai/tasks/${taskId}/analyze`);
     return response;
 };
 
 // Bulk prioritize all pending tasks
 export const prioritizeTasks = async () => {
-    const response = await API.POST('/ai/tasks/prioritize');
+    const response = await API.POST('/api/ai/tasks/prioritize');
     return response;
 };
 
 // Retrieve daily task workload summary and operational health
 export const getDailyTaskSummary = async () => {
-    const response = await API.POST('/ai/tasks/daily-summary');
+    const response = await API.POST('/api/ai/tasks/daily-summary');
     return response;
 };

@@ -1,21 +1,21 @@
 import * as API from '../api/api.js';
 
 export const getSettings = async () => {
-    return await API.GET('/settings');
+    return await API.GET('/api/settings');
 };
 
 export const updateEmailConfig = async (data) => {
-    return await API.PUT('/settings/email', data);
+    return await API.PUT('/api/settings/email', data);
 };
 
 export const updateAiConfig = async (data) => {
-    return await API.PUT('/settings/ai', data);
+    return await API.PUT('/api/settings/ai', data);
 };
 
 export const deleteEmailConfig = async () => {
-    return await API.DELETE('/settings/email');
+    return await API.DELETE('/api/settings/email');
 };
 
 export const deleteAiConfig = async () => {
-    return await API.DELETE('/settings/ai');
+    return await API.DELETE('/api/settings/ai');
 };
