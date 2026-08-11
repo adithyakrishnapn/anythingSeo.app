@@ -1,12 +1,12 @@
 import React from 'react'
 
 import ActivityFeeds from '../components/dashboard/activity/ActivityFeeds'
-import AIInsights from '../components/dashboard/ai/AiInsights'
+import AIInsights from '../components/dashboard/ai/AIInsights'
 import DashboardStats from '../components/dashboard/stats/DashboardStats'
 import DashboardCharts from '../components/dashboard/charts/DashboardCharts'
 import LeadRow from '../components/dashboard/leads/LeadRow'
 import TaskPanel from '../components/dashboard/tasks/TaskPanel'
-import AiDashboard from '@/components/dashboard/ai/AiDashboard'
+import AiDashboard from '@/components/dashboard/ai/AIDashboard'
 
 function Dashboard() {
 
