@@ -1,5 +1,5 @@
 import React from 'react'
-import AiDashboard from '@/components/dashboard/ai/AiDashboard'
+import AiDashboard from '@/components/dashboard/ai/AIDashboard'
 
 function AiInsightsPage() {
   return (

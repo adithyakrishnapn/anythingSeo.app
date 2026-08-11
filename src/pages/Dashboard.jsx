@@ -1,7 +1,7 @@
 import React from 'react'
 
 import ActivityFeeds from '../components/dashboard/activity/ActivityFeeds'
-import AIInsights from '../components/dashboard/ai/AIInsights'
+import AIInsights from '../components/dashboard/ai/AiInsights'
 import DashboardStats from '../components/dashboard/stats/DashboardStats'
 import DashboardCharts from '../components/dashboard/charts/DashboardCharts'
 import LeadRow from '../components/dashboard/leads/LeadRow'
