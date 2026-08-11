@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import ClientDetailsCard from '@/components/clients/ClientDetailsCard'
 import ClientActions from '@/components/clients/ClientActions'
+import ClientAIIntelligence from '@/components/clients/ClientAIIntelligence'
 import { clientsDetailsTags } from '@/constants/clientData'
 import { getClientById } from '@/services/client.service'
 
@@ -31,6 +32,7 @@ function ClientDetails() {
     <div className="space-y-6">
       <ClientActions detailed={true} id={id} />
       <ClientDetailsCard client={client} clientTags={clientsDetailsTags} />
+      <ClientAIIntelligence client={client} />
     </div>
   )
 }

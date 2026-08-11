@@ -31,6 +31,16 @@ export const PUT = async(url, data = {}, config = {})=>{
     }
 }
 
+export const PATCH = async(url, data = {}, config = {})=>{
+    try{
+        const response = await api.patch(url, data, config);
+        return response.data;
+    }catch(error){
+        console.error('PATCH request error:', error);
+        throw error;
+    }
+}
+
 export const DELETE = async(url, config = {})=>{
     try{
         const response = await api.delete(url, config);

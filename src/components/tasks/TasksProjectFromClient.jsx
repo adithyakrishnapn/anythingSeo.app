@@ -18,7 +18,7 @@ function TasksProjectFromClient({results, setSelectedClient, setSearch}) {
         mt-2'>
         {results.map((result)=>{
             return(
-                <div key={result.id} className='p-2 border-b border-border border-solid last:border-b-0 hover:bg-muted rounded-lg cursor-pointer' onMouseDown={() => {
+                <div key={result._id || result.id} className='p-2 border-b border-border border-solid last:border-b-0 hover:bg-muted rounded-lg cursor-pointer' onMouseDown={() => {
                     setSelectedClient(result);
                     setSearch(result.name);
                     saveClientToLocalStorage('selectedClient', result, 10);

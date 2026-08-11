@@ -46,7 +46,7 @@ function Signup() {
 
             if (response?.success) {
                 toast.success(response?.message || "Registered Successfully");
-                navigate("/dashboard/main");
+                navigate("/dashboard/settings");
             } else {
                 toast.error(response?.message || "Failed to register");
             }

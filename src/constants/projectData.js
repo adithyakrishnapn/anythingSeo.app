@@ -258,9 +258,7 @@ export const projectDetailsTags = [
 
 export const projectFilters = [
     "All",
-    "Planning",
-    "In Progress",
-    "Review",
+    "Active",
+    "Inactive",
     "Completed",
-    "On Hold",
 ];

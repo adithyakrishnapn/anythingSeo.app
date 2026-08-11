@@ -5,6 +5,7 @@ const AuthContext = createContext(null)
 
 function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
+  const [settingsConfigured, setSettingsConfigured] = useState(false)
   const [loading, setLoading] = useState(true)
 
 
@@ -12,8 +13,10 @@ function AuthProvider({ children }) {
     try {
       const response = await currentUser();
       setUser(response.data)
+      setSettingsConfigured(response.onboarding?.settingsConfigured ?? false)
     } catch (error) {
       setUser(null);
+      setSettingsConfigured(false);
     } finally {
       setLoading(false)
     }
@@ -40,6 +43,7 @@ function AuthProvider({ children }) {
   const logout = async () => {
     await logoutService();
     setUser(null);
+    setSettingsConfigured(false);
   }
 
   useEffect(() => {
@@ -49,6 +53,8 @@ function AuthProvider({ children }) {
     <AuthContext.Provider
       value={{
         user,
+        settingsConfigured,
+        setSettingsConfigured,
         loading,
         login,
         signup,

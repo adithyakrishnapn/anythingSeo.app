@@ -1,27 +1,44 @@
-import React from 'react'
+import { useState,useEffect } from 'react'
 import SearchBar from '@/components/common/SearchBar'
 import Filters from '@/components/common/Filters'
 import ProjectActions from '@/components/projects/ProjectActions'
 import Table from '@/components/common/Table'
-import { useState } from 'react'
 import { projectFilters } from '@/constants/projectData'
-import { projectTags } from '@/constants/projectData'
-import { projectsData } from '@/constants/projectData'
+import { getProjects } from '@/services/project.service';
+import useTagsAndData from '@/hooks/useTagsAndData'
 
 function ProjectPage() {
     const [search, setSearch] = useState('');
+    const [projectsData, setProjectsData] = useState([]);
     const [usedFilters, setUsedFilters] = useState([]);
 
-    const projects = projectsData.filter((project) => {
-        const matchSearch = project.name.toLowerCase().includes(search.toLowerCase()) ||
-            project.client.toLowerCase().includes(search.toLowerCase()) ||
-            project.status.toLowerCase().includes(search.toLowerCase()) ||
-            project.value.toString().includes(search) ||
-            project.startDate.toLowerCase().includes(search.toLowerCase()) ||
-            project.endDate.toLowerCase().includes(search.toLowerCase());
+
+    useEffect(()=>{
+        async function fetchProjects() {
+            try{
+                const response = await getProjects();
+                console.log(response);
+                setProjectsData(response.data);
+            }catch(error){
+                console.log("Error fetching projects",error);
+            }
+        }
+
+        fetchProjects();
+    },[])
+
+    const {tags, data} = useTagsAndData(projectsData);
+    const visibleTags = tags.filter((tag)=> !['_id','__v','clientId','createdAt'].includes(tag));
 
 
-        const matchFilter = usedFilters.includes('All') || usedFilters.length === 0 || usedFilters.some((f) => project.status.toLowerCase().includes(f.toLowerCase()));
+    const projects = data.filter((project) => {
+        const matchSearch = (project.name || '').toLowerCase().includes(search.toLowerCase()) ||
+            (project.client || '').toLowerCase().includes(search.toLowerCase()) ||
+            (project.status || '').toLowerCase().includes(search.toLowerCase()) ||
+            (project.ProjectName || '').toLowerCase().includes(search.toLowerCase());
+
+
+        const matchFilter = usedFilters.includes('All') || usedFilters.length === 0 || usedFilters.some((f) => (project.status || '').toLowerCase().includes(f.toLowerCase()));
 
         return matchSearch && matchFilter;
     })
@@ -38,7 +55,7 @@ function ProjectPage() {
                 <ProjectActions />
             </div>
             <div className="mb-4">
-                <Table leads={projects} tags={projectTags} linkto={"projects"} />
+                <Table leads={projects} tags={visibleTags} linkto={"projects"} />
             </div>
         </div>
     )

@@ -27,3 +27,7 @@ export const addActivityToClient = async (id, activity) => {
 export const deleteActivityFromClient = async (id, activity) => {
     return await API.PUT(`/clients/delete-activity-from-client/${id}`, { activity });
 }
+
+export const getClientNameAndId = async () => {
+    return await API.GET('/clients/get-client-name-and-id');
+}

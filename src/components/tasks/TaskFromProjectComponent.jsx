@@ -5,7 +5,8 @@ function TaskFromProjectComponent({selectedClientDetails}) {
     
   const projectRows = selectedClientDetails.map((project) => ({
     ...project,
-    'Project Name': project.name,
+    'Project Name': project.ProjectName || project.name,
+    _id: project._id || project.id
   }));
 
   return (

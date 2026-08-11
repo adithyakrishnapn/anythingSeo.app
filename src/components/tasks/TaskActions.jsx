@@ -1,8 +1,12 @@
 import { useNavigate } from "react-router-dom";
+import { Loader2, Mail } from "lucide-react";
 
 function TaskActions({
   detailed = false,
   id,
+  deleteFunction,
+  sendFollowUpFunction,
+  sendingFollowUp = false
 }) {
 
   const navigate = useNavigate();
@@ -74,7 +78,7 @@ function TaskActions({
 
             <button
               onClick={() =>
-                navigate(`/tasks/edit/${id}`)
+                navigate(`/dashboard/tasks/edit/${id}`)
               }
               className="
                 rounded-lg
@@ -92,6 +96,7 @@ function TaskActions({
             </button>
 
             <button
+              onClick={deleteFunction}
               className="
                 rounded-lg
                 border border-border
@@ -109,7 +114,7 @@ function TaskActions({
             </button>
 
             <button
-            onClick={()=> navigate(`/tasks/update/${id}`)}
+            onClick={()=> navigate(`/dashboard/tasks/update/${id}`)}
               className="
                 rounded-lg
                 bg-sky-500/10
@@ -141,13 +146,39 @@ function TaskActions({
               View Tasks
             </button>
 
+            {sendFollowUpFunction && (
+              <button
+                onClick={sendFollowUpFunction}
+                disabled={sendingFollowUp}
+                className="
+                  rounded-lg
+                  bg-amber-500/10
+                  px-4 py-2
+                  text-sm font-medium
+                  text-amber-700
+                  transition-colors
+                  hover:bg-amber-500/15
+                  disabled:opacity-50
+                  flex items-center gap-1.5
+                  cursor-pointer
+                "
+              >
+                {sendingFollowUp ? (
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                ) : (
+                  <Mail className="h-3.5 w-3.5" />
+                )}
+                Send Follow-up Email
+              </button>
+            )}
+
           </>
 
         ) : (
 
           <button
             onClick={() =>
-              navigate("/tasks/create")
+              navigate("/dashboard/tasks/create")
             }
             className="
               rounded-lg

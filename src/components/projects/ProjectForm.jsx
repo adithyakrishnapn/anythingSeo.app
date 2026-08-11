@@ -1,18 +1,6 @@
 import React from 'react'
 
-function ProjectForm({ formData, handleChange }) {
-
-  const objectivesValue = Array.isArray(formData.objectives)
-    ? formData.objectives.join(', ')
-    : formData.objectives || '';
-
-  const deliverablesValue = Array.isArray(formData.deliverables)
-    ? formData.deliverables.join(', ')
-    : formData.deliverables || '';
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+function ProjectForm({ formData, handleChange, formSubmission, clients = [] }) {
 
   return (
     <div className="
@@ -43,7 +31,7 @@ function ProjectForm({ formData, handleChange }) {
 
       </div>
 
-      <form className="space-y-6" onSubmit={handleSubmit}>
+      <form className="space-y-6" onSubmit={formSubmission}>
 
         <div className="
           grid
@@ -52,17 +40,86 @@ function ProjectForm({ formData, handleChange }) {
           md:grid-cols-2
         ">
 
-          <div className="space-y-2 md:col-span-2">
+          <div className="space-y-2">
 
-            <label htmlFor="name" className="text-sm font-medium text-foreground">
-              Name
+            <label htmlFor="clientId" className="text-sm font-medium text-foreground">
+              Client
+            </label>
+
+            <select
+              id="clientId"
+              value={formData.clientId || ''}
+              onChange={handleChange}
+              required
+              className="
+                w-full
+                rounded-lg
+                border border-input
+                bg-background
+                px-4 py-2.5
+                text-sm
+                text-foreground
+                outline-none
+                transition-colors
+                focus:border-primary
+                focus:ring-2
+                focus:ring-primary/20
+              "
+            >
+              <option value="">Select client</option>
+              {clients.map((client) => (
+                <option key={client._id} value={client._id}>
+                  {client.name} {client.company ? `(${client.company})` : ''}
+                </option>
+              ))}
+            </select>
+
+          </div>
+
+          <div className="space-y-2">
+
+            <label htmlFor="clientName" className="text-sm font-medium text-foreground">
+              Client Name
             </label>
 
             <input
               type="text"
-              id="name"
-              value={formData.name || ''}
+              id="clientName"
+              value={formData.clientName || ''}
               onChange={handleChange}
+              required
+              placeholder="Enter client name"
+              className="
+                w-full
+                rounded-lg
+                border border-input
+                bg-background
+                px-4 py-2.5
+                text-sm
+                text-foreground
+                outline-none
+                transition-colors
+                placeholder:text-muted-foreground
+                focus:border-primary
+                focus:ring-2
+                focus:ring-primary/20
+              "
+            />
+
+          </div>
+
+          <div className="space-y-2">
+
+            <label htmlFor="ProjectName" className="text-sm font-medium text-foreground">
+              Project Name
+            </label>
+
+            <input
+              type="text"
+              id="ProjectName"
+              value={formData.ProjectName || ''}
+              onChange={handleChange}
+              required
               placeholder="Enter project name"
               className="
                 w-full
@@ -109,10 +166,9 @@ function ProjectForm({ formData, handleChange }) {
               "
             >
               <option value="">Select status</option>
-              <option value="Planning">Planning</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Review">Review</option>
-              <option value="Completed">Completed</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+              <option value="completed">Completed</option>
             </select>
 
           </div>
@@ -150,109 +206,14 @@ function ProjectForm({ formData, handleChange }) {
 
           <div className="space-y-2">
 
-            <label htmlFor="priority" className="text-sm font-medium text-foreground">
-              Priority
-            </label>
-
-            <select
-              id="priority"
-              value={formData.priority || ''}
-              onChange={handleChange}
-              className="
-                w-full
-                rounded-lg
-                border border-input
-                bg-background
-                px-4 py-2.5
-                text-sm
-                text-foreground
-                outline-none
-                transition-colors
-                focus:border-primary
-                focus:ring-2
-                focus:ring-primary/20
-              "
-            >
-              <option value="">Select priority</option>
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
-            </select>
-
-          </div>
-
-          <div className="space-y-2">
-
-            <label htmlFor="progress" className="text-sm font-medium text-foreground">
-              Progress (%)
-            </label>
-
-            <input
-              type="number"
-              id="progress"
-              min="0"
-              max="100"
-              value={formData.progress || ''}
-              onChange={handleChange}
-              placeholder="Enter progress"
-              className="
-                w-full
-                rounded-lg
-                border border-input
-                bg-background
-                px-4 py-2.5
-                text-sm
-                text-foreground
-                outline-none
-                transition-colors
-                placeholder:text-muted-foreground
-                focus:border-primary
-                focus:ring-2
-                focus:ring-primary/20
-              "
-            />
-
-          </div>
-
-          <div className="space-y-2">
-
-            <label htmlFor="startDate" className="text-sm font-medium text-foreground">
-              Start Date
+            <label htmlFor="expiryDate" className="text-sm font-medium text-foreground">
+              Expiry Date
             </label>
 
             <input
               type="date"
-              id="startDate"
-              value={formData.startDate || ''}
-              onChange={handleChange}
-              className="
-                w-full
-                rounded-lg
-                border border-input
-                bg-background
-                px-4 py-2.5
-                text-sm
-                text-foreground
-                outline-none
-                transition-colors
-                focus:border-primary
-                focus:ring-2
-                focus:ring-primary/20
-              "
-            />
-
-          </div>
-
-          <div className="space-y-2">
-
-            <label htmlFor="endDate" className="text-sm font-medium text-foreground">
-              End Date
-            </label>
-
-            <input
-              type="date"
-              id="endDate"
-              value={formData.endDate || ''}
+              id="expiryDate"
+              value={formData.expiryDate || ''}
               onChange={handleChange}
               className="
                 w-full
@@ -282,70 +243,9 @@ function ProjectForm({ formData, handleChange }) {
               id="description"
               value={formData.description || ''}
               onChange={handleChange}
+              required
               rows={4}
               placeholder="Write project description"
-              className="
-                w-full
-                rounded-lg
-                border border-input
-                bg-background
-                px-4 py-2.5
-                text-sm
-                text-foreground
-                outline-none
-                transition-colors
-                placeholder:text-muted-foreground
-                focus:border-primary
-                focus:ring-2
-                focus:ring-primary/20
-              "
-            />
-
-          </div>
-
-          <div className="space-y-2 md:col-span-2">
-
-            <label htmlFor="objectives" className="text-sm font-medium text-foreground">
-              Objectives
-            </label>
-
-            <textarea
-              id="objectives"
-              value={objectivesValue}
-              onChange={handleChange}
-              rows={3}
-              placeholder="Enter objectives separated by commas"
-              className="
-                w-full
-                rounded-lg
-                border border-input
-                bg-background
-                px-4 py-2.5
-                text-sm
-                text-foreground
-                outline-none
-                transition-colors
-                placeholder:text-muted-foreground
-                focus:border-primary
-                focus:ring-2
-                focus:ring-primary/20
-              "
-            />
-
-          </div>
-
-          <div className="space-y-2 md:col-span-2">
-
-            <label htmlFor="deliverables" className="text-sm font-medium text-foreground">
-              Deliverables
-            </label>
-
-            <textarea
-              id="deliverables"
-              value={deliverablesValue}
-              onChange={handleChange}
-              rows={3}
-              placeholder="Enter deliverables separated by commas"
               className="
                 w-full
                 rounded-lg

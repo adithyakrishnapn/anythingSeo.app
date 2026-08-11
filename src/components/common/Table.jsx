@@ -2,7 +2,7 @@ import React from 'react'
 import LeadTableRow from './TableRow'
 import { Link } from 'react-router-dom'
 
-function Table({ leads, tags, linkto = false, priority = {} }) {
+function Table({ leads, tags, linkto = false, priority = {}, onAnalyzeTask }) {
     return (
         <div className="
   w-full
@@ -58,7 +58,7 @@ function Table({ leads, tags, linkto = false, priority = {} }) {
 
                     ) : (
                         leads.map((lead) =>
-                            <LeadTableRow key={lead._id} rowData={lead} rowColumns={tags} islink={linkto} priority={priority} />
+                            <LeadTableRow key={lead._id} rowData={lead} rowColumns={tags} islink={linkto} priority={priority} onAnalyzeTask={onAnalyzeTask} />
                         )
 
                     )}

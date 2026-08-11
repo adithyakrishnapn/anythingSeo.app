@@ -1,11 +1,29 @@
 import { useNavigate } from "react-router-dom";
+import { deleteProject } from "@/services/project.service";
+import { toast } from "sonner";
 
 function ProjectActions({
   detailed = false,
   id,
+  setConvert
 }) {
 
   const navigate = useNavigate();
+
+
+    function deleteProjectById() {
+      try {
+        deleteProject(id).then((response) => {
+          setTimeout(() => {
+            toast.dismiss();
+          }, 3000);
+          toast.success("Project deleted successfully");
+          navigate("/dashboard/projects");
+        });
+      } catch (error) {
+        console.error('Error deleting project:', error);
+      }
+    }
 
   return (
 
@@ -74,7 +92,7 @@ function ProjectActions({
 
             <button
               onClick={() =>
-                navigate(`/projects/edit/${id}`)
+                navigate(`/dashboard/projects/edit/${id}`)
               }
               className="
                 rounded-lg
@@ -104,11 +122,13 @@ function ProjectActions({
                 transition-colors
                 hover:bg-rose-500/15
               "
+              onClick={deleteProjectById}
             >
               Delete Project
             </button>
 
             <button
+            onClick={() => setConvert(prev => !prev)}
               className="
                 rounded-lg
                 bg-sky-500/10
@@ -146,7 +166,7 @@ function ProjectActions({
 
           <button
             onClick={() =>
-              navigate("/projects/create")
+              navigate("/dashboard/projects/create")
             }
             className="
               rounded-lg

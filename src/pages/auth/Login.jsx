@@ -32,7 +32,12 @@ function Login() {
 				return;
 			}
 			toast.success(response?.message || "Logged in successfully");
-			navigate("/dashboard/main");
+			
+			if (response?.onboarding?.settingsConfigured === false) {
+				navigate("/dashboard/settings");
+			} else {
+				navigate("/dashboard/main");
+			}
 
 		} catch (error) {
 			toast.error(error?.response?.data?.message || "Failed to log in");

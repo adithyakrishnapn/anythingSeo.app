@@ -17,6 +17,7 @@ import TasksFromProject from '@/pages/tasks/TaskFromProject';
 import TasksPage from '@/pages/tasks/TasksPage';
 import TaskDetailsPage from '@/pages/tasks/TaskDetailsPage';
 import TaskProgress from '@/pages/tasks/TaskProgress';
+import CreateTasks from '@/pages/tasks/CreateTasks';
 import ProtectedRoutes from './ProtectedRoutes';
 import AiInsightsPage from '@/pages/ai/AiInsights';
 
@@ -47,6 +48,8 @@ function DashboardRoutes() {
 
 
                     <Route path="/tasks" element={<TasksFromProject />} />
+                    <Route path="/tasks/create" element={<CreateTasks />} />
+                    <Route path="/tasks/edit/:id" element={<CreateTasks isEdit={true} />} />
                     <Route path="/tasks/select/:id" element={<TasksPage />} />
                     <Route path="/tasks/details/:id" element={<TaskDetailsPage />} />
                     <Route path="/tasks/update/:id" element={<TaskProgress />} />
