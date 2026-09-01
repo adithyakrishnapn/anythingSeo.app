@@ -6,7 +6,7 @@ import DashboardStats from '../components/dashboard/stats/DashboardStats'
 import DashboardCharts from '../components/dashboard/charts/DashboardCharts'
 import LeadRow from '../components/dashboard/leads/LeadRow'
 import TaskPanel from '../components/dashboard/tasks/TaskPanel'
-import AiDashboard from '@/components/dashboard/ai/AiDashboard'
+import AIDashboard from '@/components/dashboard/ai/AiDashboard'
 
 function Dashboard() {
 
@@ -49,7 +49,7 @@ function Dashboard() {
 
             <LeadRow />
 
-            <AiDashboard />
+            <AIDashboard />
 
           </div>
 

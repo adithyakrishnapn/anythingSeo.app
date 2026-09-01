@@ -4,7 +4,7 @@ from "@/constants/aiInsights";
 import AIInsights
 from "./AIInsights";
 
-function AiDashboard() {
+function AIDashboard() {
 
   return (
 
@@ -40,4 +40,4 @@ function AiDashboard() {
   );
 }
 
-export default AiDashboard;
+export default AIDashboard;
