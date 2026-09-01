@@ -1,5 +1,5 @@
 import React from 'react'
-import AiDashboard from '@/components/dashboard/ai/AiDashboard'
+import AIDashboard from '@/components/dashboard/ai/AIDashboard'
 
 function AiInsightsPage() {
   return (
@@ -16,7 +16,7 @@ function AiInsightsPage() {
       </div>
 
       <div className="relative max-w-3xl">
-        <AiDashboard />
+        <AIDashboard />
       </div>
     </div>
   )
